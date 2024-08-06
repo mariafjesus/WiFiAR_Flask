@@ -1,0 +1,75 @@
+{% macro matrix(list, unit, maxVal) %}
+    <div class="col">
+        {% for row in list %}
+            <div class="row">
+                {% for num in row %}
+                    <div class="pixel" data-value="{{ num }}" max-val="{{ maxVal }}">
+                        <p>{{ num }} {{ unit }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var pixels = document.querySelectorAll('.pixel');
+            pixels.forEach(function(pixel) {
+                var value = parseInt(pixel.getAttribute('data-value'));
+                var maxVal = parseInt(pixel.getAttribute('max-val'));
+                if (value == 0) {
+                    pixel.style.backgroundColor = `rgb(255,255,255)`;
+                } else {
+                    var ratio = Math.abs(value / maxVal);
+                    var red, green;
+                    if (value > 0) {
+                        red = Math.floor((1 - ratio) * 255);
+                        green = Math.floor(ratio * 255);
+                    } else {
+                        red = Math.floor(ratio * 255);
+                        green = Math.floor((1 - ratio) * 255);
+                    }
+                    var blue = 0;
+                    pixel.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+                }
+            });
+        });
+    </script>
+{% endmacro %}
+
+{% macro matrix_pdf(list, maxVal) %}
+    <div class="col">
+        {% for row in list %}
+            <div class="row">
+                {% for num in row %}
+                    <div class="pixel" data-value="{{ num }}" max-val="{{ maxVal }}">
+                        <p class="matrix-pdf">{{ num }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var pixels = document.querySelectorAll('.pixel');
+            pixels.forEach(function(pixel) {
+                var value = parseInt(pixel.getAttribute('data-value'));
+                var maxVal = parseInt(pixel.getAttribute('max-val'));
+                if (value == 0) {
+                    pixel.style.backgroundColor = `rgb(200,200,200)`;
+                } else {
+                    var ratio = Math.abs(value / maxVal);
+                    var red, green;
+                    if (value > 0) {
+                        red = Math.floor((1 - ratio) * 255);
+                        green = Math.floor(ratio * 255);
+                    } else {
+                        red = Math.floor(ratio * 255);
+                        green = Math.floor((1 - ratio) * 255);
+                    }
+                    var blue = 0;
+                    pixel.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+                }
+            });
+        });
+    </script>
+{% endmacro %}

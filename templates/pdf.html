@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ root }}/static/css/pdf.css">
+    </head>
+    <body>
+        {% for i in range(scans_data|length) %}
+        <div class="new-page">
+            <h1>WiFi: {{ scans_data[i].wifi_name }}</h1>
+            <div class="stats">
+                <div class="stats-block-container">
+                    <div class="stats-block">
+                        <h3 id="wifi_strength">Wifi Strength</h3>
+                        <p id="wifi_min_strength">Min: {{ scans_data[i].wifi_min_strength }} dBm</p>
+                        <p id="wifi_max_strength">Max: {{ scans_data[i].wifi_max_strength }} dBm</p>
+                        <p id="wifi_avg_strength">Average: {{ scans_data[i].wifi_avg_strength }} dBm</p>
+                    </div>
+                </div>
+                <div class="stats-block-container">
+                    <div class="stats-block">
+                        <h3 id="wifi_speed">Wifi Speed</h3>
+                        <p id ="wifi_min_speed">Min: {{ scans_data[i].wifi_min_speed }} Mbps</p>
+                        <p id="wifi_max_speed">Max: {{ scans_data[i].wifi_max_speed }} Mbps</p>
+                        <p id="wifi_avg_speed">Average: {{ scans_data[i].wifi_avg_speed }} Mbps</p>
+                    </div>
+                </div>
+            </div>
+            <div class="images-container">
+                <div class="images">
+                    <div id="walls_image"><img id="walls_img" src="{{ root }}/{{ scans_data[i].walls_img_path }}" alt="House plan"></div>
+                    <div id="all_image"><img id="map_img" src="{{ root }}/{{ scans_data[i].map_img_path }}" alt="Wifi quality map"></div>
+                </div>
+            </div>
+            <p>
+                {% if scans_data|length > 1 %}Scan {{ i + 1 }}  -  {% endif %}
+                {{ scans_data[i].scan_time }}
+            </p>
+        </div>
+        {% endfor %}
+    </body>
+</html>
